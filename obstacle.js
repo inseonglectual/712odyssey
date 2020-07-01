@@ -118,16 +118,16 @@ Obstacle.MAX_OBSTACLE_LENGTH = 1,
             }
 
             if(this.type == 'member'){
-                console.log(this.memberNum);
-                this.canvasCtx.drawImage(document.getElementById('members'),
-                    sourceX, this.spritePos.y,
-                    sourceWidth * this.size, sourceHeight,
-                    this.xPos, this.yPos,
-                    this.typeConfig.width * this.size, this.typeConfig.height);
+                // console.log(this.memberNum);
+                // this.canvasCtx.drawImage(document.getElementById('members'),
+                //     sourceX, this.spritePos.y,
+                //     sourceWidth * this.size, sourceHeight,
+                //     this.xPos, this.yPos,
+                //     this.typeConfig.width * this.size, this.typeConfig.height);
 
-                console.log(sourceX, this.spritePos.y, sourceWidth, sourceHeight,
-                this.xPos, 90,
-                this.typeConfig.width, this.typeConfig.height);
+                // console.log(sourceX, this.spritePos.y, sourceWidth, sourceHeight,
+                // this.xPos, 90,
+                // this.typeConfig.width, this.typeConfig.height);
             }
             else{
                 this.canvasCtx.drawImage(Runner.imageSprite,
