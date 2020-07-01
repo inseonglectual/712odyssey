@@ -485,7 +485,7 @@ Runner.prototype =
             var scaleNumber = machineWidth*0.85/runnerWidth;
             var machineHWRatio = 1080/1727;
             var heightPercentage = .273;
-            document.getElementsByClassName('runner-container')[0].style.transformOrigin = "center";
+            document.getElementsByClassName('runner-container')[0].style.transformOrigin = "center top";
 
         }
         else{
@@ -502,7 +502,7 @@ Runner.prototype =
         
         var machineLeft = bodyWidth/2 - machineWidth/2;
         var runnerLeft = bodyWidth/2 - runnerWidth/2 ;
-        var runnerTop = machineWidth*machineHWRatio*heightPercentage - runnerHeight*scaleNumber/2;
+        var runnerTop = machineWidth*machineHWRatio*heightPercentage;
 
         // console.log(bodyWidth, machineWidth,runnerWidth, runnerLeft);
         //TODO: filter transform by device
@@ -522,7 +522,6 @@ Runner.prototype =
         document.getElementsByClassName('runner-container')[0].style.WebkitTransform = scaleFactor;
         // document.getElementsByClassName('runner-container')[0].style.transformOrigin = "top center";
 
-        runnerTop = machineWidth*machineHWRatio*0.375;
         document.getElementsByClassName('runner-container')[0].style.top = runnerTop + 'px';
 
 

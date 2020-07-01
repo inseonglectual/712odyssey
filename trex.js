@@ -43,7 +43,7 @@
     Trex.config = {
         DROP_VELOCITY: -5,
         GRAVITY: 0.6,
-        HEIGHT: 68,
+        HEIGHT: 63,
         INIITAL_JUMP_VELOCITY: -10,
         INTRO_DURATION: 1000,
         MAX_JUMP_HEIGHT: 30,
@@ -119,8 +119,7 @@
          * Sets the t-rex to blink at random intervals.
          */
         init: function () {
-            this.groundYPos = Runner.defaultDimensions.HEIGHT - this.config.HEIGHT -
-                Runner.config.BOTTOM_PAD;
+            this.groundYPos = Runner.defaultDimensions.HEIGHT - this.config.HEIGHT;
             this.yPos = this.groundYPos;
             this.minJumpHeight = this.groundYPos - this.config.MIN_JUMP_HEIGHT;
 

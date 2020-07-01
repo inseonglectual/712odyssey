@@ -85,7 +85,7 @@ html, body {
   display: none;
 }
 
-@media (max-width: 420px) {
+/* @media (max-width: 420px) {
   .suggested-left > #control-buttons, .suggested-right > #control-buttons {
     float: none;
   }
@@ -117,7 +117,7 @@ html, body {
     margin-left: 0;
     margin-right: 0;
   }
-}
+} */
 
 /* @media (min-width: 420px) and (max-width: 736px) and (min-height: 240px) and (max-height: 420px) and (orientation:landscape) {
   .interstitial-wrapper {
@@ -134,18 +134,19 @@ html, body {
   }
 } */
 
+/* 
 @media (max-height: 320px) and (orientation: landscape) {
   .icon-offline {
-    /* margin-bottom: 0; */
+    margin-bottom: 0;
   }
   .offline .runner-container {
     top: 10px;
   }
-}
+} */
 
-@media (max-width: 240px) {
+/* @media (max-width: 240px) {
   .interstitial-wrapper {
     overflow: inherit;
     padding: 0 8px;
   }
-}
+} */
