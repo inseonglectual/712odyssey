@@ -233,6 +233,7 @@ Obstacle.types = [
         type: 'member',
         width: 38,
         height: 60,
+        yPosMobile:[80],
         yPos: [80], // Variable height.
         multipleSpeed: 4,
         minGap: 600,
