@@ -491,7 +491,7 @@ Runner.prototype =
 
 
 
-        if(this.playing){
+        if(this.playing || this.paused){
             var scaleNumber = machineWidth*0.85/runnerWidth;
             var machineHWRatio = 1080/1728;
             var heightPercentage = .29;
@@ -718,7 +718,7 @@ Runner.prototype =
                     //this.playSound(this.soundFx.BUTTON_PRESS);
                     this.tRex.startJump(this.currentSpeed);
                 }
-            } else if(!this.crashed && !this.paused && (Runner.keycodes.RESTART[e.keyCode] == Runner.events.TOUCHSTART)){
+            } else if(!this.crashed && !this.paused && (Runner.keycodes.RESTART[e.keyCode])){
                 this.stop();
             } 
             if (this.crashed && e.type == Runner.events.TOUCHSTART &&
