@@ -158,7 +158,7 @@ Horizon.prototype = {
             var obstacleSpritePos = this.spritePos[obstacleType.type];
         }
         if (currentSpeed < obstacleType.minSpeed) {
-        this.addNewObstacle(currentSpeed);
+            this.addNewObstacle(currentSpeed);
         } 
         else {
             this.obstacles.push(new Obstacle(this.canvasCtx, obstacleType,

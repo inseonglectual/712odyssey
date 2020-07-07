@@ -118,16 +118,16 @@ Obstacle.MAX_OBSTACLE_LENGTH = 1,
             }
 
             if(this.type == 'member'){
-                // console.log(this.memberNum);
+                console.log(this.memberNum);
                 this.canvasCtx.drawImage(document.getElementById('members'),
                     sourceX, this.spritePos.y,
                     sourceWidth * this.size, sourceHeight,
                     this.xPos, this.yPos,
                     this.typeConfig.width * this.size, this.typeConfig.height);
 
-                // console.log(sourceX, this.spritePos.y, sourceWidth, sourceHeight,
-                // this.xPos, 90,
-                // this.typeConfig.width, this.typeConfig.height);
+                console.log(sourceX, this.spritePos.y, sourceWidth, sourceHeight,
+                this.xPos, 90,
+                this.typeConfig.width, this.typeConfig.height);
             }
             else{
                 this.canvasCtx.drawImage(Runner.imageSprite,
@@ -234,7 +234,7 @@ Obstacle.types = [
         width: 38,
         height: 60,
         yPosMobile: [90],
-        yPos: [90], // Variable height.
+        yPos: [80], // Variable height.
         multipleSpeed: 4,
         minGap: 600,
         minSpeed: 1,

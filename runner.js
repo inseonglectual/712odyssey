@@ -80,7 +80,7 @@ Runner.config = {
     INITIAL_JUMP_VELOCITY: 12,
     INVERT_FADE_DURATION: 12000,
     INVERT_DISTANCE: 700,
-     MAX_BLINK_COUNT: 10,
+     MAX_BLINK_COUNT: 100000,
     MAX_OBSTACLE_LENGTH: 3,
     MAX_OBSTACLE_DUPLICATION: 2,
     MAX_SPEED: 13,
@@ -220,7 +220,7 @@ Runner.prototype =
     loadImages: function () {
         if (IS_HIDPI) {
             Runner.imageSprite = document.getElementById('inseong-resources-1x');
-            this.spriteDef = Runner.spriteDefinition.HDPI;
+            this.spriteDef = Runner.spriteDefinition.LDPI;
         } else {
             Runner.imageSprite = document.getElementById('inseong-resources-1x');
             // Runner.imageSprite = document.getElementById('inseong-resources-1x-transparent');
@@ -363,6 +363,9 @@ Runner.prototype =
 
         this.dimensions.WIDTH = this.outerContainerEl.offsetWidth - padding * 2;
 
+        this.dimensions.WIDTH = Math.max(600,this.dimensions.WIDTH);
+
+
         // Redraw the elements back onto the canvas.
         if (this.canvas) {
             this.canvas.width = this.dimensions.WIDTH;
@@ -370,10 +373,17 @@ Runner.prototype =
 
             Runner.updateCanvasScaling(this.canvas);
 
+
             this.distanceMeter.calcXPos(this.dimensions.WIDTH);
             this.clearCanvas();
-            this.horizon.update(0, 0, true);
             this.tRex.update(0);
+
+            if(this.playing){
+                this.horizon.update(0, 0, true);
+            }
+            else{
+                this.horizon.update(0,0,false);
+            }
 
             // Outer container and distance meter.
             if (this.playing || this.crashed || this.paused) {
@@ -483,9 +493,9 @@ Runner.prototype =
 
         if(this.playing){
             var scaleNumber = machineWidth*0.85/runnerWidth;
-            var machineHWRatio = 1080/1727;
-            var heightPercentage = .273;
-            document.getElementsByClassName('runner-container')[0].style.transformOrigin = "center top";
+            var machineHWRatio = 1080/1728;
+            var heightPercentage = .29;
+            document.getElementsByClassName('runner-container')[0].style.transformOrigin = "top center";
 
         }
         else{
@@ -494,6 +504,10 @@ Runner.prototype =
             var heightPercentage = .375;
             document.getElementsByClassName('runner-container')[0].style.transformOrigin = "top center";
 
+        }
+
+        if(machineWidth<600){
+            
         }
         
         var scaleFactor = 'scale(' + scaleNumber + ')';
@@ -513,7 +527,7 @@ Runner.prototype =
         // document.getElementsByClassName('runner-container')[0].style.WebkitTransform = scaleFactor;
         document.getElementsByClassName('runner-container')[0].style.margin = '0';
         document.getElementsByClassName('runner-canvas')[0].style.margin = '0';
-        document.getElementsByClassName('runner-container')[0].style.width = '100%';
+        document.getElementsByClassName('runner-container')[0].style.width = '600px';
         document.getElementsByClassName('runner-container')[0].style.left = runnerLeft + 'px';
         document.getElementsByClassName('runner-container')[0].style.top = runnerTop + 'px';
         document.getElementById('machine').style.margin = 0;
@@ -522,6 +536,7 @@ Runner.prototype =
         document.getElementsByClassName('runner-container')[0].style.WebkitTransform = scaleFactor;
         // document.getElementsByClassName('runner-container')[0].style.transformOrigin = "top center";
 
+        // runnerTop = machineWidth*machineHWRatio*0.375;
         document.getElementsByClassName('runner-container')[0].style.top = runnerTop + 'px';
 
 
