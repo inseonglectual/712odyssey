@@ -825,20 +825,33 @@ Runner.prototype =
 
         this.tRex.update(100, Trex.status.CRASHED);
 
-        // Game over panel.
-        if (!this.gameOverPanel) {
-            this.gameOverPanel = new GameOverPanel(this.canvas,
-                this.spriteDef.TEXT_SPRITE, this.spriteDef.RESTART,
-                this.dimensions);
-        } else {
-            this.gameOverPanel.draw();
+        // // Game over panel.
+        // if (!this.gameOverPanel) {
+        //     this.gameOverPanel = new GameOverPanel(this.canvas,
+        //         this.spriteDef.TEXT_SPRITE, this.spriteDef.RESTART,
+        //         this.dimensions);
+        // } else {
+        //     this.gameOverPanel.draw();
+        // }
+        this.canvasCtx.drawImage(document.getElementById('end'), 0, 0, 600, 150,
+                0, 0, 600, 150);
+        console.log(this.distanceRan);
+        minutes = Math.floor(this.distanceRan/60000).toString();
+        console.log(minutes);
+        for (var i = minutes.length - 1; i >= 0; i--) {
+            this.drawFinalTime(i, parseInt(minutes[i], 10),255,107);
         }
 
-        // Update the high score.
-        if (this.distanceRan > this.highestScore) {
-            this.highestScore = Math.ceil(this.distanceRan);
-            this.distanceMeter.setHighScore(this.highestScore);
+        seconds = Math.floor((this.distanceRan/1000)%60).toString();
+        for (var i = seconds.length - 1; i >= 0; i--) {
+            this.drawFinalTime(i, parseInt(seconds[i], 10),303,107);
         }
+        
+        // Update the high score.
+        // if (this.distanceRan > this.highestScore) {
+        //     this.highestScore = Math.ceil(this.distanceRan);
+        //     this.distanceMeter.setHighScore(this.highestScore);
+        // }
 
         // Reset the time clock.
         this.time = getTimeStamp();
@@ -883,6 +896,45 @@ Runner.prototype =
             this.invert(true);
             this.update();
         }
+    },
+
+    /**
+     * Draw a digit to canvas.
+     * @param {number} digitPos Position of the digit.
+     * @param {number} value Digit value 0-9.
+     * @param {boolean} opt_highScore Whether drawing the high score.
+     */
+    drawFinalTime: function (digitPos, value, xPos, yPos) {
+        var sourceWidth = DistanceMeter.dimensions.WIDTH;
+        var sourceHeight = DistanceMeter.dimensions.HEIGHT;
+        var sourceX = DistanceMeter.dimensions.WIDTH * value;
+        var sourceY = 0;
+
+        var targetX = xPos + DistanceMeter.dimensions.WIDTH*digitPos;
+        var targetY = yPos;
+        var targetWidth = DistanceMeter.dimensions.WIDTH;
+        var targetHeight = DistanceMeter.dimensions.HEIGHT;
+
+        // For high DPI we 2x source values.
+        if (IS_HIDPI) {
+            sourceWidth *= 2;
+            sourceHeight *= 2;
+            sourceX *= 2;
+        }
+
+        sourceX += this.spriteDef.TEXT_SPRITE.x;
+        sourceY += this.spriteDef.TEXT_SPRITE.y;
+
+        this.canvasCtx.save();
+
+        //this.canvasCtx.translate(this.x, this.y);
+        this.canvasCtx.drawImage(document.getElementById('inseong-resources-1x'), sourceX, sourceY,
+            sourceWidth, sourceHeight,
+            targetX, targetY,
+            targetWidth, targetHeight
+        );
+
+        this.canvasCtx.restore();
     },
 
     /**
