@@ -13,7 +13,7 @@
         this.yPos = 0;
         // Position when on the ground.
         this.groundYPos = 0;
-        this.yGroundOffset = 5;
+        this.yGroundOffset = 10;
         this.currentFrame = 0;
         this.currentAnimFrames = [];
         this.blinkDelay = 0;
@@ -119,8 +119,7 @@
          * Sets the t-rex to blink at random intervals.
          */
         init: function () {
-            this.groundYPos = Runner.defaultDimensions.HEIGHT - this.config.HEIGHT -
-                Runner.config.BOTTOM_PAD;
+            this.groundYPos = Runner.defaultDimensions.HEIGHT - this.config.HEIGHT;
             this.yPos = this.groundYPos;
             this.minJumpHeight = this.groundYPos - this.config.MIN_JUMP_HEIGHT;
 
