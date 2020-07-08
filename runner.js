@@ -312,14 +312,22 @@ Runner.prototype =
             this.spriteDef.TEXT_SPRITE, this.dimensions.WIDTH);
 
         //draw start background
-        if(IS_MOBILE){
-            this.canvasCtx.drawImage(document.getElementById('mobile-start'), 0, 0, 600, 150,
+        if(Date.now() < releaseDate){
+            this.canvasCtx.drawImage(document.getElementById('preview-start'), 0, 0, 600, 150,
                 0, 0, 600, 150);
         }
         else{
-            this.canvasCtx.drawImage(document.getElementById('start'), 0, 0, 600, 150,
-                0, 0, 600, 150);
+            if(IS_MOBILE){
+                this.canvasCtx.drawImage(document.getElementById('mobile-start'), 0, 0, 600, 150,
+                    0, 0, 600, 150);
+            }
+            else{
+                this.canvasCtx.drawImage(document.getElementById('start'), 0, 0, 600, 150,
+                    0, 0, 600, 150);
+            }
         }
+
+ 
 
 
         // Draw t-rex
@@ -546,7 +554,11 @@ Runner.prototype =
         // runnerTop = machineWidth*machineHWRatio*0.375;
         document.getElementsByClassName('runner-container')[0].style.top = runnerTop + 'px';
 
+        var timeNow = Date.now();
 
+        if(timeNow < timeNow){
+            
+        }
         
         if (this.playing) {
             this.clearCanvas();
@@ -703,6 +715,11 @@ Runner.prototype =
      * @param {Event} e
      */
     onKeyDown: function (e) {
+
+        if(Date.now() < releaseDate){
+            return;
+        }
+
         // Prevent native page scrolling whilst tapping on mobile.
         if (IS_MOBILE && this.playing) {
             e.preventDefault();
@@ -917,12 +934,19 @@ Runner.prototype =
         var deltaTime = time - this.tRex.animStartTime;
         if (deltaTime >= this.tRex.blinkDelay) {
             this.clearCanvas();
-            if(IS_MOBILE){
-                this.canvasCtx.drawImage(document.getElementById('mobile-start'), 0, 0, 600, 150,
-                0, 0, 600, 150);
-            } else{
-                this.canvasCtx.drawImage(document.getElementById('start'), 0, 0, 600, 150,
-                0, 0, 600, 150);
+            if(Date.now() < releaseDate){
+                this.canvasCtx.drawImage(document.getElementById('preview-start'), 0, 0, 600, 150,
+                    0, 0, 600, 150);
+            }
+            else{
+                if(IS_MOBILE){
+                    this.canvasCtx.drawImage(document.getElementById('mobile-start'), 0, 0, 600, 150,
+                        0, 0, 600, 150);
+                }
+                else{
+                    this.canvasCtx.drawImage(document.getElementById('start'), 0, 0, 600, 150,
+                        0, 0, 600, 150);
+                }
             }
             
             this.tRex.draw(this.tRex.currentAnimFrames[this.tRex.currentFrame], this.tRex.yGroundOffset);

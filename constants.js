@@ -27,3 +27,5 @@ var backgrounds = ["background-1-1","background-1-2","background-1-1","backgroun
 var goal = 712;
 
 var memberGap = 30;
+
+var releaseDate = Date.parse('2020-07-12T00:00:00+09:00');
