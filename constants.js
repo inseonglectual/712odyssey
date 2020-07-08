@@ -26,4 +26,4 @@ var backgrounds = ["background-1-1","background-1-2","background-1-1","backgroun
 
 var goal = 712;
 
-var memberGap = 10;
+var memberGap = 30;

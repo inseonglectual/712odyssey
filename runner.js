@@ -70,7 +70,7 @@ function Runner(outerContainerId, opt_config) {
  * @enum {number}
  */
 Runner.config = {
-    ACCELERATION: 0.001,
+    ACCELERATION: 0.0007,
     BG_CLOUD_SPEED: 0.2,
     BOTTOM_PAD: 0,
     CLEAR_TIME: 500,
@@ -83,11 +83,11 @@ Runner.config = {
      MAX_BLINK_COUNT: 100000,
     MAX_OBSTACLE_LENGTH: 3,
     MAX_OBSTACLE_DUPLICATION: 2,
-    MAX_SPEED: 13,
+    MAX_SPEED: 10,
     MIN_JUMP_HEIGHT: 35,
     MOBILE_SPEED_COEFFICIENT: 1.2,
     RESOURCE_TEMPLATE_ID: 'audio-resources',
-    SPEED: 3,
+    SPEED: 4,
     SPEED_DROP_COEFFICIENT: 3
 };
 
@@ -580,13 +580,16 @@ Runner.prototype =
             if (collision) {
                 if(this.horizon.obstacles[0].type == 'member'){
                     this.membersCollected.push(this.horizon.obstacles[0].memberNum);
+                    this.collisions += 8;
                 }
                 this.horizon.obstacles.shift();
                 this.collisions += 1;
                 this.horizon.collisions += 1;
             }
 
-            this.distanceRan += this.currentSpeed * deltaTime / this.msPerFrame;
+            //this.distanceRan += this.currentSpeed * deltaTime / this.msPerFrame;
+
+            this.distanceRan += deltaTime;
 
             if (this.currentSpeed < this.config.MAX_SPEED) {
                 this.currentSpeed += this.config.ACCELERATION;
