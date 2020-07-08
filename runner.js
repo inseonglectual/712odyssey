@@ -917,8 +917,14 @@ Runner.prototype =
         var deltaTime = time - this.tRex.animStartTime;
         if (deltaTime >= this.tRex.blinkDelay) {
             this.clearCanvas();
-            this.canvasCtx.drawImage(document.getElementById('start'), 0, 0, 600, 150,
+            if(IS_MOBILE){
+                this.canvasCtx.drawImage(document.getElementById('mobile-start'), 0, 0, 600, 150,
                 0, 0, 600, 150);
+            } else{
+                this.canvasCtx.drawImage(document.getElementById('start'), 0, 0, 600, 150,
+                0, 0, 600, 150);
+            }
+            
             this.tRex.draw(this.tRex.currentAnimFrames[this.tRex.currentFrame], this.tRex.yGroundOffset);
 
             if (this.tRex.currentFrame == 1) {
