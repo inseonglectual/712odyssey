@@ -312,8 +312,15 @@ Runner.prototype =
             this.spriteDef.TEXT_SPRITE, this.dimensions.WIDTH);
 
         //draw start background
-        this.canvasCtx.drawImage(document.getElementById('start'), 0, 0, 600, 150,
+        if(IS_MOBILE){
+            this.canvasCtx.drawImage(document.getElementById('mobile-start'), 0, 0, 600, 150,
                 0, 0, 600, 150);
+        }
+        else{
+            this.canvasCtx.drawImage(document.getElementById('start'), 0, 0, 600, 150,
+                0, 0, 600, 150);
+        }
+
 
         // Draw t-rex
         this.tRex = new Trex(this.canvas, this.spriteDef.TREX);
