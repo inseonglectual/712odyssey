@@ -234,7 +234,7 @@ Obstacle.types = [
         width: 38,
         height: 60,
         yPosMobile: [90],
-        yPos: [80], // Variable height.
+        yPos: [90], // Variable height.
         multipleSpeed: 4,
         minGap: 600,
         minSpeed: 1,

@@ -13,7 +13,7 @@
         this.yPos = 0;
         // Position when on the ground.
         this.groundYPos = 0;
-        this.yGroundOffset = 10;
+        this.yGroundOffset = 5;
         this.currentFrame = 0;
         this.currentAnimFrames = [];
         this.blinkDelay = 0;
