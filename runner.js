@@ -126,6 +126,7 @@ Runner.spriteDefinition = {
         CLOUD: { x: 0, y: 0 },
         HORIZON: { x: 2, y: 70 },
         MEMBER: {x:10, y: 50},
+        CAKE: {x:280, y:20},
         RESTART: { x: 2, y: 14 },
         TEXT_SPRITE: { x: 655, y: 13 },
         TREX: { x: 848, y: -10 },
@@ -136,6 +137,7 @@ Runner.spriteDefinition = {
         CLOUD: { x: 0, y: 0 },
         HORIZON: { x: 2, y: 104 },
         MEMBER: {x:10, y: 50},
+        CAKE: {x:280, y:20},
         RESTART: { x: 2, y: 2 },
         TEXT_SPRITE: { x: 1294, y: 2 },
         TREX: { x: 1678, y: 2 },
@@ -219,11 +221,10 @@ Runner.prototype =
      */
     loadImages: function () {
         if (IS_HIDPI) {
-            Runner.imageSprite = document.getElementById('inseong-resources-1x');
+            Runner.imageSprite = document.getElementById('inseong-resources-1x-1');
             this.spriteDef = Runner.spriteDefinition.LDPI;
         } else {
-            Runner.imageSprite = document.getElementById('inseong-resources-1x');
-            // Runner.imageSprite = document.getElementById('inseong-resources-1x-transparent');
+            Runner.imageSprite = document.getElementById('inseong-resources-1x-1');
             this.spriteDef = Runner.spriteDefinition.LDPI;
         }
 
@@ -383,6 +384,11 @@ Runner.prototype =
 
         // Redraw the elements back onto the canvas.
         if (this.canvas) {
+
+            if(IS_MOBILE && !this.playing && window.innerWidth > window.innerHeight){
+                document.getElementById('rotate').style.visibility = "hidden";
+            }
+
             this.canvas.width = this.dimensions.WIDTH;
             this.canvas.height = this.dimensions.HEIGHT;
 
@@ -391,6 +397,7 @@ Runner.prototype =
 
             this.distanceMeter.calcXPos(this.dimensions.WIDTH);
             this.clearCanvas();
+
             this.tRex.update(0);
 
             if(this.playing){
@@ -404,7 +411,7 @@ Runner.prototype =
             if (this.playing || this.crashed || this.paused) {
                 this.containerEl.style.width = this.dimensions.WIDTH + 'px';
                 this.containerEl.style.height = this.dimensions.HEIGHT + 'px';
-                this.distanceMeter.update(0, Math.ceil(this.collisions));
+                this.distanceMeter.update(0, Math.ceil(this.horizon.collisions));
                 this.stop();
             } else {
                 this.tRex.draw(0, 0);
@@ -599,10 +606,13 @@ Runner.prototype =
             if (collision) {
                 if(this.horizon.obstacles[0].type == 'member'){
                     this.membersCollected.push(this.horizon.obstacles[0].memberNum);
-                    this.collisions += 8;
+                    this.horizon.collisions += 14;
+                }
+                if(this.horizon.obstacles[0].type == 'cake'){
+                    this.horizon.collisions += (goal - this.horizon.collisions-1);
                 }
                 this.horizon.obstacles.shift();
-                this.collisions += 1;
+                this.horizon.collisions += 1;
                 this.horizon.collisions += 1;
             }
 
@@ -614,12 +624,18 @@ Runner.prototype =
                 this.currentSpeed += this.config.ACCELERATION;
             }
 
-            if(this.collisions == goal){
+            console.log(this.horizon.obstacles.length);
+            if(this.horizon.obstacles.length > 0 && this.horizon.obstacles[this.horizon.obstacles.length-1].type == 'cake'){
+                this.horizon.obstacles[this.horizon.obstacles.length-1].speed = 2;
+            }
+
+
+            if(this.horizon.collisions >= goal){
                 this.gameOver();
             }
 
             var playAchievementSound = this.distanceMeter.update(deltaTime,
-                Math.ceil(this.collisions));
+                Math.ceil(this.horizon.collisions));
 
             if (playAchievementSound) {
                 this.playSound(this.soundFx.SCORE);
@@ -643,6 +659,7 @@ Runner.prototype =
 
         if (this.playing || (!this.activated &&
             this.tRex.blinkCount < Runner.config.MAX_BLINK_COUNT)) {
+  
 
             this.tRex.update(deltaTime);
             this.scheduleNextUpdate();
@@ -729,6 +746,11 @@ Runner.prototype =
             if (!this.crashed && !this.paused && (Runner.keycodes.JUMP[e.keyCode] ||
                 e.type == Runner.events.TOUCHSTART)) {
                 if (!this.playing) {
+                    if(window.innerHeight > window.innerWidth){
+                        //console.log("true");
+                        document.getElementById('rotate').style.display = "block";
+                        return;
+                    }
                     //this.loadSounds();
                     this.playing = true;
                     this.update();
@@ -835,9 +857,9 @@ Runner.prototype =
         // }
         this.canvasCtx.drawImage(document.getElementById('end'), 0, 0, 600, 150,
                 0, 0, 600, 150);
-        console.log(this.distanceRan);
+        // console.log(this.distanceRan);
         minutes = Math.floor(this.distanceRan/60000).toString();
-        console.log(minutes);
+        // console.log(minutes);
         for (var i = minutes.length - 1; i >= 0; i--) {
             this.drawFinalTime(i, parseInt(minutes[i], 10),255,107);
         }
@@ -928,7 +950,7 @@ Runner.prototype =
         this.canvasCtx.save();
 
         //this.canvasCtx.translate(this.x, this.y);
-        this.canvasCtx.drawImage(document.getElementById('inseong-resources-1x'), sourceX, sourceY,
+        this.canvasCtx.drawImage(document.getElementById('inseong-resources-1x-0'), sourceX, sourceY,
             sourceWidth, sourceHeight,
             targetX, targetY,
             targetWidth, targetHeight

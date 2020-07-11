@@ -207,8 +207,9 @@
 
             // Adjustments for sprite sheet position.
             
-
-            this.canvasCtx.drawImage(Runner.imageSprite, sourceX, sourceY,
+            // console.log(BACKGROUNDNUM);
+            // console.log(sprites[BACKGROUNDNUM+1]);
+            this.canvasCtx.drawImage(document.getElementById(sprites[BACKGROUNDNUM+1]), sourceX, sourceY,
                 sourceWidth, sourceHeight,
                 this.xPos, this.yPos,
                 this.config.WIDTH, this.config.HEIGHT);

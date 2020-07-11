@@ -71,6 +71,7 @@ Horizon.prototype = {
      * @param {number} currentSpeed
      */
     updateClouds: function (deltaTime, speed) {
+        BACKGROUNDNUM = this.clouds[0].backgroundNum;
         var cloudSpeed = this.cloudSpeed / 1000 * deltaTime * speed;
         var numClouds = this.clouds.length;
 
@@ -143,8 +144,17 @@ Horizon.prototype = {
      */
     addNewObstacle: function (currentSpeed) {
         //console.log("add obstacle");
+        //console.log(this.collisions, this.collisions%memberGap);
         var member = -1;
+        if(this.collisions >= 712){
+            var obstacleType = Obstacle.types[2];
+            this.obstacles.push(new Obstacle(this.canvasCtx, Obstacle.types[2],
+                {x:280, y:20}, this.dimensions,
+                this.gapCoefficient, currentSpeed, obstacleType.width, -1));
+            return;
+        }
         if (this.collisions%memberGap == 0 && this.collisions != 0 && this.remainingMembers.length>0) {
+            //console.log('member')
             var obstacleType = Obstacle.types[1];
             this.remainingMembers.sort(function() {
                 return .5 - Math.random();
