@@ -609,7 +609,7 @@ Runner.prototype =
                     this.horizon.collisions += 14;
                 }
                 if(this.horizon.obstacles[0].type == 'cake'){
-                    this.horizon.collisions += (goal - this.horizon.collisions-1);
+                    this.horizon.collisions += (goal - this.horizon.collisions-2);
                 }
                 this.horizon.obstacles.shift();
                 this.horizon.collisions += 1;
@@ -624,7 +624,7 @@ Runner.prototype =
                 this.currentSpeed += this.config.ACCELERATION;
             }
 
-            console.log(this.horizon.obstacles.length);
+            //console.log(this.horizon.obstacles.length);
             if(this.horizon.obstacles.length > 0 && this.horizon.obstacles[this.horizon.obstacles.length-1].type == 'cake'){
                 this.horizon.obstacles[this.horizon.obstacles.length-1].speed = 2;
             }
