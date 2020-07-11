@@ -84,14 +84,20 @@ html, body {
 }
 
 #rotate{
-  background-image: url("assets/rotate_screen.png");
-  visibility: hidden;
-  margin:auto;
-  width:100%;
-  height:100%;
-  z-index: 5;
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  text-align: center;
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
 }
 
+#rotate_img{
+  margin: auto; /* 15% from the top and centered */
+  width: 80%; /* Could be more or less, depending on screen size */
+}
 /* @media (max-width: 420px) {
   .suggested-left > #control-buttons, .suggested-right > #control-buttons {
     float: none;

@@ -737,7 +737,7 @@ Runner.prototype =
                 if (!this.playing) {
                     if(window.innerHeight > window.innerWidth){
                         console.log("true");
-                        document.getElementById('rotate').style.visibility = "visible";
+                        document.getElementById('rotate').style.display = "block";
                         return;
                     }
                     //this.loadSounds();
