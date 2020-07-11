@@ -144,6 +144,7 @@ Horizon.prototype = {
      */
     addNewObstacle: function (currentSpeed) {
         //console.log("add obstacle");
+        //console.log(this.collisions, this.collisions%memberGap);
         var member = -1;
         if(this.collisions >= 712){
             var obstacleType = Obstacle.types[2];
@@ -153,6 +154,7 @@ Horizon.prototype = {
             return;
         }
         if (this.collisions%memberGap == 0 && this.collisions != 0 && this.remainingMembers.length>0) {
+            //console.log('member')
             var obstacleType = Obstacle.types[1];
             this.remainingMembers.sort(function() {
                 return .5 - Math.random();

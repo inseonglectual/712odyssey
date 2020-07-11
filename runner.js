@@ -313,7 +313,7 @@ Runner.prototype =
             this.spriteDef.TEXT_SPRITE, this.dimensions.WIDTH);
 
         //draw start background
-        if(Date.now() > releaseDate){
+        if(Date.now() < releaseDate){
             this.canvasCtx.drawImage(document.getElementById('preview-start'), 0, 0, 600, 150,
                 0, 0, 600, 150);
         }
@@ -411,7 +411,7 @@ Runner.prototype =
             if (this.playing || this.crashed || this.paused) {
                 this.containerEl.style.width = this.dimensions.WIDTH + 'px';
                 this.containerEl.style.height = this.dimensions.HEIGHT + 'px';
-                this.distanceMeter.update(0, Math.ceil(this.collisions));
+                this.distanceMeter.update(0, Math.ceil(this.horizon.collisions));
                 this.stop();
             } else {
                 this.tRex.draw(0, 0);
@@ -606,13 +606,13 @@ Runner.prototype =
             if (collision) {
                 if(this.horizon.obstacles[0].type == 'member'){
                     this.membersCollected.push(this.horizon.obstacles[0].memberNum);
-                    this.collisions += 8;
+                    this.horizon.collisions += 14;
                 }
                 if(this.horizon.obstacles[0].type == 'cake'){
-                    this.collisions += (goal - this.collisions-1);
+                    this.horizon.collisions += (goal - this.horizon.collisions-1);
                 }
                 this.horizon.obstacles.shift();
-                this.collisions += 1;
+                this.horizon.collisions += 1;
                 this.horizon.collisions += 1;
             }
 
@@ -624,12 +624,18 @@ Runner.prototype =
                 this.currentSpeed += this.config.ACCELERATION;
             }
 
-            if(this.collisions == goal){
+            console.log(this.horizon.obstacles.length);
+            if(this.horizon.obstacles.length > 0 && this.horizon.obstacles[this.horizon.obstacles.length-1].type == 'cake'){
+                this.horizon.obstacles[this.horizon.obstacles.length-1].speed = 2;
+            }
+
+
+            if(this.horizon.collisions >= goal){
                 this.gameOver();
             }
 
             var playAchievementSound = this.distanceMeter.update(deltaTime,
-                Math.ceil(this.collisions));
+                Math.ceil(this.horizon.collisions));
 
             if (playAchievementSound) {
                 this.playSound(this.soundFx.SCORE);
@@ -727,7 +733,7 @@ Runner.prototype =
      */
     onKeyDown: function (e) {
 
-        if(Date.now() > releaseDate){
+        if(Date.now() < releaseDate){
             return;
         }
 
@@ -741,7 +747,7 @@ Runner.prototype =
                 e.type == Runner.events.TOUCHSTART)) {
                 if (!this.playing) {
                     if(window.innerHeight > window.innerWidth){
-                        console.log("true");
+                        //console.log("true");
                         document.getElementById('rotate').style.display = "block";
                         return;
                     }
@@ -1002,7 +1008,7 @@ Runner.prototype =
         var deltaTime = time - this.tRex.animStartTime;
         if (deltaTime >= this.tRex.blinkDelay) {
             this.clearCanvas();
-            if(Date.now() > releaseDate){
+            if(Date.now() < releaseDate){
                 this.canvasCtx.drawImage(document.getElementById('preview-start'), 0, 0, 600, 150,
                     0, 0, 600, 150);
             }

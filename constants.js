@@ -28,7 +28,7 @@ var sprites = ["inseong-resources-1x-0","inseong-resources-1x-1", "inseong-resou
 
 var goal = 93712;
 
-var memberGap = 30;
+var memberGap = 80;
 
 var releaseDate = Date.parse('2020-07-12T00:00:00+09:00');
 
