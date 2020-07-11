@@ -219,11 +219,10 @@ Runner.prototype =
      */
     loadImages: function () {
         if (IS_HIDPI) {
-            Runner.imageSprite = document.getElementById('inseong-resources-1x');
+            Runner.imageSprite = document.getElementById('inseong-resources-1x-1');
             this.spriteDef = Runner.spriteDefinition.LDPI;
         } else {
-            Runner.imageSprite = document.getElementById('inseong-resources-1x');
-            // Runner.imageSprite = document.getElementById('inseong-resources-1x-transparent');
+            Runner.imageSprite = document.getElementById('inseong-resources-1x-1');
             this.spriteDef = Runner.spriteDefinition.LDPI;
         }
 
@@ -312,7 +311,7 @@ Runner.prototype =
             this.spriteDef.TEXT_SPRITE, this.dimensions.WIDTH);
 
         //draw start background
-        if(Date.now() < releaseDate){
+        if(Date.now() > releaseDate){
             this.canvasCtx.drawImage(document.getElementById('preview-start'), 0, 0, 600, 150,
                 0, 0, 600, 150);
         }
@@ -383,6 +382,11 @@ Runner.prototype =
 
         // Redraw the elements back onto the canvas.
         if (this.canvas) {
+
+            if(IS_MOBILE && !this.playing && window.innerWidth > window.innerHeight){
+                document.getElementById('rotate').style.visibility = "hidden";
+            }
+
             this.canvas.width = this.dimensions.WIDTH;
             this.canvas.height = this.dimensions.HEIGHT;
 
@@ -391,6 +395,7 @@ Runner.prototype =
 
             this.distanceMeter.calcXPos(this.dimensions.WIDTH);
             this.clearCanvas();
+
             this.tRex.update(0);
 
             if(this.playing){
@@ -643,6 +648,7 @@ Runner.prototype =
 
         if (this.playing || (!this.activated &&
             this.tRex.blinkCount < Runner.config.MAX_BLINK_COUNT)) {
+  
 
             this.tRex.update(deltaTime);
             this.scheduleNextUpdate();
@@ -716,7 +722,7 @@ Runner.prototype =
      */
     onKeyDown: function (e) {
 
-        if(Date.now() < releaseDate){
+        if(Date.now() > releaseDate){
             return;
         }
 
@@ -729,6 +735,11 @@ Runner.prototype =
             if (!this.crashed && !this.paused && (Runner.keycodes.JUMP[e.keyCode] ||
                 e.type == Runner.events.TOUCHSTART)) {
                 if (!this.playing) {
+                    if(window.innerHeight > window.innerWidth){
+                        console.log("true");
+                        document.getElementById('rotate').style.visibility = "visible";
+                        return;
+                    }
                     //this.loadSounds();
                     this.playing = true;
                     this.update();
@@ -835,9 +846,9 @@ Runner.prototype =
         // }
         this.canvasCtx.drawImage(document.getElementById('end'), 0, 0, 600, 150,
                 0, 0, 600, 150);
-        console.log(this.distanceRan);
+        // console.log(this.distanceRan);
         minutes = Math.floor(this.distanceRan/60000).toString();
-        console.log(minutes);
+        // console.log(minutes);
         for (var i = minutes.length - 1; i >= 0; i--) {
             this.drawFinalTime(i, parseInt(minutes[i], 10),255,107);
         }
@@ -986,7 +997,7 @@ Runner.prototype =
         var deltaTime = time - this.tRex.animStartTime;
         if (deltaTime >= this.tRex.blinkDelay) {
             this.clearCanvas();
-            if(Date.now() < releaseDate){
+            if(Date.now() > releaseDate){
                 this.canvasCtx.drawImage(document.getElementById('preview-start'), 0, 0, 600, 150,
                     0, 0, 600, 150);
             }

@@ -71,6 +71,7 @@ Horizon.prototype = {
      * @param {number} currentSpeed
      */
     updateClouds: function (deltaTime, speed) {
+        BACKGROUNDNUM = this.clouds[0].backgroundNum;
         var cloudSpeed = this.cloudSpeed / 1000 * deltaTime * speed;
         var numClouds = this.clouds.length;
 

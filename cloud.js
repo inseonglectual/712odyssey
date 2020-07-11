@@ -6,6 +6,7 @@
  * @param {number} containerWidth
  */
 function Cloud(canvas, spritePos, containerWidth,backgroundNum, start) {
+    // BACKGROUNDNUM = backgroundNum;
     this.backgroundNum = backgroundNum || 0;
     this.background = backgrounds[0];
     this.canvas = canvas;
