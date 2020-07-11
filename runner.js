@@ -126,6 +126,7 @@ Runner.spriteDefinition = {
         CLOUD: { x: 0, y: 0 },
         HORIZON: { x: 2, y: 70 },
         MEMBER: {x:10, y: 50},
+        CAKE: {x:280, y:20},
         RESTART: { x: 2, y: 14 },
         TEXT_SPRITE: { x: 655, y: 13 },
         TREX: { x: 848, y: -10 },
@@ -136,6 +137,7 @@ Runner.spriteDefinition = {
         CLOUD: { x: 0, y: 0 },
         HORIZON: { x: 2, y: 104 },
         MEMBER: {x:10, y: 50},
+        CAKE: {x:280, y:20},
         RESTART: { x: 2, y: 2 },
         TEXT_SPRITE: { x: 1294, y: 2 },
         TREX: { x: 1678, y: 2 },
@@ -606,6 +608,9 @@ Runner.prototype =
                     this.membersCollected.push(this.horizon.obstacles[0].memberNum);
                     this.collisions += 8;
                 }
+                if(this.horizon.obstacles[0].type == 'cake'){
+                    this.collisions += (goal - this.collisions-1);
+                }
                 this.horizon.obstacles.shift();
                 this.collisions += 1;
                 this.horizon.collisions += 1;
@@ -939,7 +944,7 @@ Runner.prototype =
         this.canvasCtx.save();
 
         //this.canvasCtx.translate(this.x, this.y);
-        this.canvasCtx.drawImage(document.getElementById('inseong-resources-1x'), sourceX, sourceY,
+        this.canvasCtx.drawImage(document.getElementById('inseong-resources-1x-0'), sourceX, sourceY,
             sourceWidth, sourceHeight,
             targetX, targetY,
             targetWidth, targetHeight

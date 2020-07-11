@@ -145,6 +145,13 @@ Horizon.prototype = {
     addNewObstacle: function (currentSpeed) {
         //console.log("add obstacle");
         var member = -1;
+        if(this.collisions >= 712){
+            var obstacleType = Obstacle.types[2];
+            this.obstacles.push(new Obstacle(this.canvasCtx, Obstacle.types[2],
+                {x:280, y:20}, this.dimensions,
+                this.gapCoefficient, currentSpeed, obstacleType.width, -1));
+            return;
+        }
         if (this.collisions%memberGap == 0 && this.collisions != 0 && this.remainingMembers.length>0) {
             var obstacleType = Obstacle.types[1];
             this.remainingMembers.sort(function() {

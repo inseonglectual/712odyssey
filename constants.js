@@ -26,7 +26,7 @@ var backgrounds = ["background-1","background-1","background-2","background-2", 
 
 var sprites = ["inseong-resources-1x-0","inseong-resources-1x-1", "inseong-resources-1x-1", "inseong-resources-1x-2", "inseong-resources-1x-2", "inseong-resources-1x-3", "inseong-resources-1x-3", "inseong-resources-1x-4", "inseong-resources-1x-4"];
 
-var goal = 712;
+var goal = 93712;
 
 var memberGap = 30;
 

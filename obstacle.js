@@ -241,6 +241,19 @@ Obstacle.types = [
         collisionBoxes: [
             new CollisionBox(0, 0, 40, 60)
         ]
+    },
+    {
+        type: 'cake',
+        width: 320,
+        height: 68,
+        yPosMobile: [80],
+        yPos: [80], // Variable height.
+        multipleSpeed: 4,
+        minGap: 600,
+        minSpeed: 1,
+        collisionBoxes: [
+            new CollisionBox(0, 0, 320, 68)
+        ]
     }
 
 ];
