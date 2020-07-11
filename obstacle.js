@@ -150,6 +150,10 @@ Obstacle.MAX_OBSTACLE_LENGTH = 1,
                 if (this.typeConfig.speedOffset) {
                     speed += this.speedOffset;
                 }
+
+                if(this.type == 'cake'){
+                    speed = 4;
+                }
                 this.xPos -= Math.floor((speed * FPS / 1000) * deltaTime);
 
                 // Update frame
